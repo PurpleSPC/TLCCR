@@ -1,0 +1,65 @@
+name: Check and deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Rebuild after midnight in Florida, including during daylight saving time.
+    - cron: '23 6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      pages-enabled: ${{ steps.pages.outputs.enabled }}
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      SITE_URL: ${{ vars.SITE_URL }}
+      BASE_PATH: ${{ vars.BASE_PATH }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+      - name: Check whether Pages has been enabled
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type' 2>/dev/null | grep -qx workflow; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'Pages is not enabled for Actions yet. The site will be built and checked without publishing.'
+          fi
+      - name: Install, check, test, build, and upload the site
+        uses: withastro/action@v6
+        with:
+          node-version: '24'
+          package-manager: pnpm@11.25.0
+          build-cmd: pnpm check && pnpm test && pnpm build && pnpm verify:build
+  deploy:
+    if: github.event_name != 'pull_request' && needs.build.outputs.pages-enabled == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish verified site
+        id: deployment
+        uses: actions/deploy-pages@v5

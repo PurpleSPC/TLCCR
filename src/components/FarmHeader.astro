@@ -1,0 +1,24 @@
+---
+import {withBase, withoutBase} from '../lib/paths';
+import FarmBrand from './FarmBrand.astro';
+const current = withoutBase(Astro.url.pathname);
+const links = [
+  {href:'/visit/', label:'Visit the farm'},
+  {href:'/education/', label:'Learn with us'},
+  {href:'/volunteer/', label:'Volunteer'},
+  {href:'/animals/', label:'Meet the animals'},
+];
+---
+<header class="concept-header"><div class="concept-wrap"><FarmBrand/><details class="concept-menu" open><summary>Menu <span aria-hidden="true">☰</span></summary><nav aria-label="Website navigation">{links.map(link => <a href={withBase(link.href)} aria-current={current.startsWith(link.href) ? 'page' : undefined}>{link.label}</a>)}<a class="concept-button nav-support" href={withBase("/support/")} aria-current={current === '/support/' ? 'page' : undefined}>Support the animals <span aria-hidden="true">↗</span></a></nav></details></div></header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.concept-menu');
+  const breakpoint = window.matchMedia('(max-width: 900px)');
+  const resizeMenu = () => { if (menu) menu.open = !breakpoint.matches; };
+  resizeMenu(); breakpoint.addEventListener('change', resizeMenu);
+  menu?.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && breakpoint.matches && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+</script>

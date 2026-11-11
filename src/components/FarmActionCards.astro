@@ -1,0 +1,20 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+const actions = [
+  {number:'01', title:'Visit the farm', text:'Come for a little wonder.', detail:'Meet the animals and make a little room for a day on the farm.', label:'Plan your visit', href:'/visit/', photo:'/images/concepts/encounter.jpg', alt:'A young boy feeds a goat on the grass.', position:'50% 45%'},
+  {number:'02', title:'Learn with us', text:'Let curiosity lead the way.', detail:'Bring your group’s questions and discover the farm through its animals.', label:'Explore educational opportunities', href:'/education/', photo:'/images/concepts/people.jpg', alt:'Young visitors gather around a miniature horse on the farm.', position:'50% 38%'},
+  {number:'03', title:'Lend a hand', text:'Be part of their everyday.', detail:'Volunteer with the farm team and help with the care that keeps life here going.', label:'Explore volunteering', href:'/volunteer/', photo:'/images/uploads/action-volunteer.jpg', alt:'A volunteer gently holds a crested chicken.', position:'50% 40%'},
+  {number:'04', title:'Support the animals', text:'Turn connection into care.', detail:'Help keep their home full of the everyday care they depend on.', label:'See ways to support', href:'/support/', photo:'/images/uploads/goat-portrait.jpg', alt:'A white goat looks toward the camera on the farm.', position:'50% 28%'},
+];
+---
+<section class="journal-actions journal-action-cards concept-wrap" aria-label="Four ways to get involved">
+  {actions.map(action => <a class="journal-action-card" href={withBase(action.href)}>
+    <div class="journal-action-photo"><img src={imageSrc(action.photo)} alt={action.alt} width="800" height="600" loading="lazy" style={`object-position:${action.position}`}/></div>
+    <div class="journal-action-copy">
+      <span class="journal-number">{action.number}<span aria-hidden="true">↗</span></span>
+      <h2>{action.title}</h2>
+      <p class="journal-action-intro">{action.text}</p>
+      <div class="journal-action-details"><p>{action.detail}</p><span class="journal-action-link">{action.label} <span aria-hidden="true">↗</span></span></div>
+    </div>
+  </a>)}
+</section>

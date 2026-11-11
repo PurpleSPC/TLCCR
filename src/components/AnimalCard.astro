@@ -1,0 +1,9 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+interface Props { slug: string; name: string; species: string; photo: string | null; alt: string; introduction: string; }
+const { slug, name, species, photo, alt, introduction } = Astro.props;
+---
+<article class="animal-card">
+  <a class="animal-photo" href={withBase(`/animals/${slug}/`)} tabindex="-1"><img src={imageSrc(photo || '/images/uploads/goat-portrait.jpg')} alt={alt} width="640" height="800" loading="lazy" /></a>
+  <div class="animal-card-text"><span class="eyebrow">{species}</span><h3><a href={withBase(`/animals/${slug}/`)}>{name}<span aria-hidden="true">↗</span></a></h3><p>{introduction}</p></div>
+</article>

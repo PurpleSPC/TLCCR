@@ -1,0 +1,10 @@
+{
+  "title": "Support the animals", "status": "published", "eyebrow": "Turn a connection into care", "headline": "A little kindness.\nAn everyday difference.",
+  "introduction": "The animals depend on care every day. Help Critter Creek continue its work by supporting the animals who call the ranch home.",
+  "photo": "/images/uploads/parrot.jpg", "alt": "A blue parrot looks toward the camera from its enclosure.",
+  "sections": [
+    { "heading": "Keep the care going", "body": "Support for Toby's Legacy Critter Creek Ranch Foundation helps its mission to provide continued care for the animals on site. Your generosity becomes part of that ongoing commitment." },
+    { "heading": "Talk to us about giving", "body": "Contact the ranch to find out how to make a gift or ask about current needs. The team can help you choose an appropriate way to support its work." },
+    { "heading": "Give your time, too", "body": "A helping hand matters. If volunteering is a better fit for you, explore the volunteer page and get in touch about current opportunities." }
+  ], "ctaLabel": "Talk to us about giving", "ctaSubject": "I'd like to support the animals at Critter Creek"
+}

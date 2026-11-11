@@ -1,0 +1,29 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+import {inquiryTypes} from '../lib/inquiries.mjs';
+---
+<dialog id="visit-chooser" class="visit-chooser" aria-labelledby="visit-chooser-title" aria-describedby="visit-chooser-description">
+  <div class="visit-chooser-content">
+    <button class="visit-chooser-close" type="button" aria-label="Close visit choices">✕</button>
+    <span class="concept-eyebrow">LET'S FIND YOUR KIND OF FARM DAY</span>
+    <h2 id="visit-chooser-title">What brings you<br/>to the farm?</h2>
+    <p id="visit-chooser-description">Choose an option and we’ll ask for the right details.</p>
+    <div class="visit-choice-list">{Object.entries(inquiryTypes).map(([kind, info]) => <a class="visit-choice" href={withBase(`/inquiries/${kind}/`)}><img src={imageSrc(info.photo)} alt="" width="150" height="120" loading="lazy"/><span><strong>{info.reason}</strong><span>{kind === 'visit' ? 'Plan a visit and meet the residents.' : kind === 'volunteer' ? 'Ask about helping on the farm.' : 'Plan a field trip for your students.'}</span></span><span aria-hidden="true">↗</span></a>)}</div>
+    <p class="visit-chooser-note">Visits are by arrangement with the farm.</p>
+  </div>
+</dialog>
+<script>
+  const chooser = document.querySelector<HTMLDialogElement>('.visit-chooser');
+  if (chooser && typeof chooser.showModal === 'function') {
+    let trigger: HTMLElement | null = null;
+    let previousOverflow = '';
+    document.querySelectorAll<HTMLAnchorElement>('[data-schedule-visit]').forEach(link => link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault(); trigger = link; previousOverflow = document.documentElement.style.overflow;
+      chooser.showModal(); document.documentElement.style.overflow = 'hidden';
+    }));
+    chooser.querySelector('button')?.addEventListener('click', () => chooser.close());
+    chooser.addEventListener('click', event => { if (event.target === chooser) chooser.close(); });
+    chooser.addEventListener('close', () => { document.documentElement.style.overflow = previousOverflow; trigger?.focus(); });
+  }
+</script>

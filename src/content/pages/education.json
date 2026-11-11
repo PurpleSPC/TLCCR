@@ -1,0 +1,11 @@
+{
+  "title": "Educational opportunities", "status": "published", "eyebrow": "Curiosity belongs here", "headline": "Big discoveries.\nReal connections.",
+  "introduction": "Animals have a way of getting us to pay attention. Explore an educational visit that brings your group's questions about animals, nature, and care to life.",
+  "photo": "/images/uploads/emu.jpg", "alt": "An emu looks toward the camera in a green outdoor area.",
+  "sections": [
+    { "heading": "Bring your questions", "body": "Education is part of Critter Creek's mission. Observing animals and learning about their care can open conversations about kindness, responsibility, and the natural world." },
+    { "heading": "For schools and curious groups", "body": "Contact the ranch to discuss a school outing or group visit. Let us know the ages of your participants, group size, preferred dates, and any learning goals or access needs." },
+    { "heading": "Everyday care, memorable lessons", "body": "Why might a horse wear a fly mask? What goes into looking after an animal every day? The ranch's existing animal-care stories offer a starting point for observation and discussion." },
+    { "heading": "Let's work out the details", "body": "Program availability, activities, length, fees, and age suitability need to be confirmed with the team. Start an inquiry and we can talk about what is possible for your group." }
+  ], "ctaLabel": "Plan an educational visit", "ctaSubject": "Educational visit inquiry for Critter Creek"
+}

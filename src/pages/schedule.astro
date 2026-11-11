@@ -1,0 +1,9 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+import FarmLayout from '../layouts/FarmLayout.astro';
+import {inquiryTypes} from '../lib/inquiries.mjs';
+---
+<FarmLayout title="Schedule a visit">
+  <section class="inquiry-page-heading concept-wrap"><a class="inquiry-back" href={withBase("/")}>← Back to the farm</a><span class="concept-eyebrow">YOUR NEXT CONNECTION STARTS HERE</span><h1>What brings you<br/><em>to the farm?</em></h1><p>Meeting the animals, lending a hand, or bringing a class? Choose an option so we can ask for the right details.</p></section>
+  <section class="inquiry-choice-grid concept-wrap" aria-label="Choose your visit type">{Object.entries(inquiryTypes).map(([kind, info]) => <a class={`inquiry-choice-card choice-${info.color}`} href={withBase(`/inquiries/${kind}/`)}><img src={imageSrc(info.photo)} alt={info.alt} width="800" height="600"/><div><span class="concept-eyebrow">{info.eyebrow}</span><h2>{info.reason}</h2><p>{info.intro}</p><span class="inquiry-choice-link">{info.title} ↗</span></div></a>)}</section>
+</FarmLayout>

@@ -1,0 +1,9 @@
+---
+import {withBase, imageSrc} from '../../lib/paths';
+import FarmLayout from '../../layouts/FarmLayout.astro';
+import { getEvents, getSettings, emailLink } from '../../lib/content';
+import { formatEventDate } from '../../lib/events.mjs';
+const events = await getEvents();
+const settings = await getSettings();
+---
+<FarmLayout title="Events"><section class="container page-intro"><span class="eyebrow">Gather. Discover. Connect.</span><h1>Make a little<br /><em>farm time.</em></h1><p>Find upcoming opportunities to connect with Critter Creek and the animals who make it special.</p></section><section class="container section section-topless">{events.length > 0 ? <div class="event-cards">{events.map(({ slug, entry }) => <article class="event-card">{entry.photo && <img src={imageSrc(entry.photo)} alt={entry.alt || ''} width="800" height="600" loading="lazy" />}<div><span class="eyebrow">{entry.category}</span><time datetime={entry.date || undefined}>{entry.date && formatEventDate(entry.date)}</time><h2><a href={withBase(`/events/${slug}/`)}>{entry.title}</a></h2><p>{entry.summary}</p><p>{entry.time} · {entry.location}</p><a class="text-link" href={withBase(`/events/${slug}/`)}>See event details <span aria-hidden="true">↗</span></a></div></article>)}</div> : <div class="empty-state"><span class="tiny-sun" aria-hidden="true">✳</span><h2>No upcoming events listed just yet.</h2><p>There are still ways to connect. Contact the team to arrange a visit or ask about educational and volunteer opportunities.</p><div class="button-row"><a class="button" href={withBase("/visit/")}>Plan a visit <span aria-hidden="true">↗</span></a><a class="text-link" href={withBase(emailLink(settings.email, 'Upcoming events at Critter Creek'))}>Ask about events <span aria-hidden="true">↗</span></a></div></div>}</section><p class="container event-footnote">Event dates and times are shown in Eastern time. Visits must be arranged with the farm team.</p></FarmLayout>

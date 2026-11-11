@@ -1,0 +1,11 @@
+{
+  "title": "Volunteer", "status": "published", "eyebrow": "Good hearts. Helping hands.", "headline": "Be part of\ntheir everyday.",
+  "introduction": "Behind every animal's care is someone who showed up. Lend a hand at Critter Creek and help with the work that keeps the ranch going.",
+  "photo": "/images/uploads/miniature-horse.jpg", "alt": "A miniature horse stands beside a wooden shelter at the ranch.",
+  "sections": [
+    { "heading": "Care takes a community", "body": "The ranch's small staff welcomes help with the day-to-day work of a sanctuary. Its volunteer page describes keeping animal areas clean and orderly and helping the team care for the ranch." },
+    { "heading": "Find your way to help", "body": "Tell us about your interests, experience, and availability. The team will discuss suitable opportunities, current needs, and the guidance you will receive before getting started." },
+    { "heading": "Before you apply", "body": "The current volunteer application asks volunteers to be at least 16 unless accompanied by a parent. It also asks about availability, experience, references, and emergency contact details. Confirm current requirements with the team." },
+    { "heading": "Groups and community service", "body": "Interested in helping as a group or earning community service hours? Contact the ranch first to discuss availability, supervision, and any documentation you need." }
+  ], "ctaLabel": "Ask about volunteering", "ctaSubject": "I'd like to volunteer at Critter Creek"
+}

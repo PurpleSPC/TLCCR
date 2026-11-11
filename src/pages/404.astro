@@ -1,0 +1,5 @@
+---
+import {withBase} from '../lib/paths';
+import FarmLayout from '../layouts/FarmLayout.astro';
+---
+<FarmLayout title="Page not found"><section class="container page-intro"><span class="eyebrow">A little off the trail</span><h1>Let's get you<br /><em>back to the farm.</em></h1><p>We couldn't find that page. There's still plenty of good company waiting.</p><a class="button" href={withBase("/")}>Back to the homepage <span aria-hidden="true">↗</span></a></section></FarmLayout>

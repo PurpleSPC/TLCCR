@@ -1,0 +1,36 @@
+{
+  "eyebrow": "Animals. Community. A whole lot of heart.",
+  "headline": "A little farm.\nA bigger story.",
+  "farmSlides": [
+    {
+      "photo": "/images/uploads/slideshow-horses.jpg",
+      "alt": "Miniature horses stand close together beneath the trees on the farm.",
+      "caption": "Good company comes in all sizes.",
+      "focus": "upper"
+    },
+    {
+      "photo": "/images/uploads/slideshow-horses-creek.jpg",
+      "alt": "Two miniature horses wade in the shallow creek surrounded by green palms.",
+      "caption": "A little splash. A little farm magic.",
+      "focus": "center"
+    },
+    {
+      "photo": "/images/uploads/emu.jpg",
+      "alt": "An emu with a bright orange eye looks toward the camera on the green lawn.",
+      "caption": "Curiosity, with feathers.",
+      "focus": "top"
+    },
+    {
+      "photo": "/images/uploads/slideshow-goats.jpg",
+      "alt": "A group of goats stands on the grass in front of the blue farm barn.",
+      "caption": "The welcoming committee.",
+      "focus": "center"
+    },
+    {
+      "photo": "/images/uploads/slideshow-swans.jpg",
+      "alt": "Two black swans with red bills swim across the pond, with geese behind them.",
+      "caption": "A quieter moment by the pond.",
+      "focus": "center"
+    }
+  ]
+}

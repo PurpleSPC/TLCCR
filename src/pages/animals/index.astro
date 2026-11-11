@@ -1,0 +1,8 @@
+---
+import FarmLayout from '../../layouts/FarmLayout.astro';
+import AnimalCard from '../../components/AnimalCard.astro';
+import SupportBanner from '../../components/SupportBanner.astro';
+import { getAnimals } from '../../lib/content';
+const animals = await getAnimals();
+---
+<FarmLayout title="Meet the animals"><section class="container page-intro"><span class="eyebrow">The stars of the story</span><h1>Good company.<br /><em>Great characters.</em></h1><p>Get to know some of the animals at Critter Creek. Every connection is a chance to learn, care, and become part of their story.</p></section><section class="container section section-topless"><div class="animal-grid">{animals.map(({ slug, entry }) => <AnimalCard slug={slug} {...entry} />)}</div></section><SupportBanner /></FarmLayout>

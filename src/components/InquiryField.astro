@@ -1,0 +1,12 @@
+---
+interface Props { kind: string; name: string; label: string; type?: 'text'|'email'|'tel'|'date'|'time'|'number'|'textarea'|'select'; required?:boolean; hint?:string; autocomplete?:string; min?:number; max?:number; value?:string; options?:string[]; full?:boolean; conditional?:boolean; }
+const {kind,name,label,type='text',required=false,hint,autocomplete,min,max,value,options=[],full=false,conditional=false} = Astro.props;
+const id = `${kind}-${name}`;
+const describedBy = `${hint ? `${id}-hint ` : ''}${id}-error`;
+---
+<div class:list={['inquiry-field',{'inquiry-field-full':full}]} hidden={conditional} data-other-field={conditional ? '' : undefined}>
+  <label for={id}>{label}{required ? <span class="inquiry-required" aria-hidden="true"> *</span> : <span class="inquiry-optional"> (optional)</span>}</label>
+  {hint && <p class="inquiry-field-hint" id={`${id}-hint`}>{hint}</p>}
+  {type === 'textarea' ? <textarea id={id} name={name} required={required} rows="4" maxlength="3000" aria-describedby={describedBy} data-field-label={label}></textarea> : type === 'select' ? <select id={id} name={name} required={required} aria-describedby={describedBy} data-field-label={label}><option value="">Choose an option</option>{options.map(option => <option value={option}>{option}</option>)}</select> : <input id={id} name={name} type={type} required={required} autocomplete={autocomplete} min={min} max={max} step={type === 'number' ? '1' : undefined} value={value} maxlength={['text','email','tel'].includes(type) ? 200 : undefined} disabled={conditional} aria-describedby={describedBy} data-field-label={label}/>}
+  <span class="inquiry-field-error" id={`${id}-error`} hidden></span>
+</div>

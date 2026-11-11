@@ -1,0 +1,11 @@
+{
+  "name": "The goats",
+  "species": "Goats",
+  "status": "published",
+  "order": 1,
+  "photo": "/images/uploads/goat-portrait.jpg",
+  "alt": "A white goat with curved horns faces the camera in a grassy enclosure.",
+  "introduction": "A close-up introduction to some of the faces that make Critter Creek memorable.",
+  "story": "The photographs tell a little of the story: time outdoors, a patch of green grass, and plenty to notice around the ranch.\n\nGet to know the goats as part of a visit arranged with our team. Ask questions about their care, and discover what goes into looking after the animals who call Critter Creek home.",
+  "care": "Animal care happens every day. Your support helps the ranch continue caring for the animals on site."
+}

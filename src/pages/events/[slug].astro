@@ -1,0 +1,10 @@
+---
+import {withBase, imageSrc} from '../../lib/paths';
+import FarmLayout from '../../layouts/FarmLayout.astro';
+import { getEvents, getSettings, emailLink, paragraphs } from '../../lib/content';
+import { formatEventDate } from '../../lib/events.mjs';
+export async function getStaticPaths() { return (await getEvents()).map(event => ({ params: { slug: event.slug }, props: { event: event.entry } })); }
+const { event } = Astro.props;
+const settings = await getSettings();
+---
+<FarmLayout title={event.title} description={event.summary}><section class="container page-intro"><a class="back-link" href={withBase("/events/")}>← All events</a><span class="eyebrow">{event.category} · At Critter Creek</span><h1>{event.title}</h1><p>{event.summary}</p></section><section class="container section section-topless event-detail">{event.photo && <img class="event-detail-photo" src={imageSrc(event.photo)} alt={event.alt || ''} width="1000" height="750" />}<dl><div><dt>When</dt><dd>{event.date && formatEventDate(event.date)}<br />{event.time}</dd></div><div><dt>Where</dt><dd>{event.location}</dd></div></dl>{paragraphs(event.details).map(text => <p>{text}</p>)}<a class="button" href={withBase(event.registrationUrl || emailLink(settings.email, `Event inquiry: ${event.title}`))}>{event.registrationUrl ? 'Register for this event' : 'Ask about this event'}<span aria-hidden="true">↗</span></a></section></FarmLayout>

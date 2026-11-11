@@ -1,0 +1,11 @@
+{
+  "name": "The Birds",
+  "species": "Birds",
+  "status": "published",
+  "order": 2,
+  "photo": "/images/uploads/parrot.jpg",
+  "alt": "A blue parrot with a dark beak and orange eyes looks toward the camera from its enclosure.",
+  "introduction": "A flash of color. A closer look. There is always something to be curious about.",
+  "story": "Birds are part of the community of animals at Critter Creek. These portraits offer a closer look at the details that make them so captivating.\n\nWant to learn more about the birds and their care? Start a conversation with the ranch team when planning your visit.",
+  "care": "Helping the ranch means helping with the continued, everyday care of its resident animals."
+}

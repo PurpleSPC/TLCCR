@@ -1,0 +1,36 @@
+---
+import {withBase} from '../lib/paths';
+import FarmHeader from '../components/FarmHeader.astro';
+import FarmFooter from '../components/FarmFooter.astro';
+import VisitChooser from '../components/VisitChooser.astro';
+import '../styles/farm-base.css';
+import '../styles/journal-farm.css';
+import '../styles/farm-pages.css';
+import '../styles/inquiries.css';
+interface Props { title: string; description?: string; image?: string; }
+const {title, description = 'Meet the animals at Critter Creek Sanctuary Ranch in Palm City, Florida. Visit the farm, learn, volunteer, and support their care.', image = '/images/uploads/slideshow-horses.jpg'} = Astro.props;
+const pageTitle = title === 'Home' ? 'Critter Creek Sanctuary Ranch · A little farm. A bigger story.' : `${title} · Critter Creek Sanctuary Ranch`;
+---
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{pageTitle}</title>
+  <meta name="description" content={description}/>
+  <meta name="theme-color" content="#2b5138"/>
+  <link rel="icon" type="image/png" href={withBase("/favicon.png")}/>
+  <link rel="canonical" href={new URL(withBase(Astro.url.pathname), Astro.site)}/>
+  <meta property="og:title" content={pageTitle}/>
+  <meta property="og:description" content={description}/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content={new URL(withBase(image), Astro.site).href}/>
+  <meta property="og:site_name" content="Critter Creek Sanctuary Ranch"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  {title === 'Page not found' && <meta name="robots" content="noindex,follow"/>}
+</head><body class="journal">
+  <a class="concept-skip" href="#concept-main">Skip to content</a>
+  <FarmHeader/>
+  <main id="concept-main"><slot/></main>
+  <FarmFooter/>
+  <VisitChooser/>
+</body></html>

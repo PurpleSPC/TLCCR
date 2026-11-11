@@ -1,0 +1,41 @@
+---
+import {withBase} from '../lib/paths';
+import FarmLayout from '../layouts/FarmLayout.astro';
+import { getSettings, emailLink } from '../lib/content';
+const settings = await getSettings();
+const options = [{ title: 'Arrange a visit', text: 'Tell us your group size and preferred dates.', subject: 'Visit inquiry', href:'/inquiries/visit/' }, { title: 'Bring a group to learn', text: 'Share ages, group size, and your learning goals.', subject: 'Educational visit inquiry', href:'/inquiries/field-trip/' }, { title: 'Become a volunteer', text: 'Tell us about your interests and availability.', subject: 'Volunteer inquiry', href:'/inquiries/volunteer/' }, { title: 'Support the animals', text: 'Ask about giving and the ranch’s current needs.', subject: 'Donation inquiry' }];
+---
+<FarmLayout title="Contact">
+  <section class="container page-intro">
+    <span class="eyebrow">Every connection starts somewhere</span>
+    <h1>Start with<br/><em>a hello.</em></h1>
+    <p>Planning a visit, bringing a group, or looking for a way to help? We would love to hear from you.</p>
+  </section>
+  <section class="container contact-layout section section-topless">
+    <div class="contact-details contact-planning">
+      <span class="eyebrow">Before you come to the farm</span>
+      <h2>Let's plan<br/><em>your visit.</em></h2>
+      <p class="contact-arrangement"><strong>Visits are by arrangement only.</strong></p>
+      <p>Contact us to arrange a date and time before coming to the farm. Please wait for the team to confirm your visit before you head our way.</p>
+      <a class="button" href={withBase("/schedule/")} data-schedule-visit aria-haspopup="dialog" aria-controls="visit-chooser">Schedule a visit <span aria-hidden="true">↗</span></a>
+      <p class="small-copy">Have a question before you visit? Call or email the farm.</p>
+      <a class="contact-phone" href={withBase(`tel:${settings.phone.replace(/[^\d+]/g, '')}`)}>{settings.phone}</a>
+      <a class="text-link" href={withBase(`mailto:${settings.email}`)}>{settings.email} ↗</a>
+    </div>
+    <div class="contact-options">
+      {options.map(option => <a href={withBase(option.href || emailLink(settings.email, option.subject))}><div><h2>{option.title}</h2><p>{option.text}</p></div><span aria-hidden="true">↗</span></a>)}
+      <p class="small-copy">Visit, school-trip, and volunteer options open an inquiry form. Support inquiries open your email app. You can also call the farm.</p>
+    </div>
+  </section>
+  <section class="container contact-location" aria-labelledby="farm-directions-title">
+    <div>
+      <span class="eyebrow">After your visit is arranged</span>
+      <h2 id="farm-directions-title">Getting to the farm.</h2>
+      <p>Please confirm your visit with the team before travelling to the farm.</p>
+    </div>
+    <div>
+      <address>{settings.name}<br/>{settings.address}<br/>{settings.city}</address>
+      <a class="text-link" href={withBase(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${settings.name} ${settings.address} ${settings.city}`)}`)}>Get directions <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</FarmLayout>

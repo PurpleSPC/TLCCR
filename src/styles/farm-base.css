@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;max-width:100%;object-fit:cover}
+h1,h2,h3,p,figure{margin:0}
+h1,h2,h3{font-weight:400}
+p{line-height:1.75}
+button,summary{font:inherit}
+a,summary{touch-action:manipulation}
+a:focus-visible,summary:focus-visible{outline:3px solid #bc693d;outline-offset:5px}
+::selection{background:#e7c9a1;color:#253d2e}
+.concept-wrap{width:min(1280px,calc(100% - 100px));margin-inline:auto}
+.concept-eyebrow{display:block;font-size:10px;font-weight:600;line-height:1.7;letter-spacing:.15em;text-transform:uppercase}
+.concept-skip{position:fixed;top:-100px;left:10px;z-index:99;padding:12px 20px;background:white;color:#122f2a}
+.concept-skip:focus{top:10px}
+.concept-header{position:relative;z-index:2}
+.concept-header>.concept-wrap{min-height:97px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.concept-brand{display:inline-flex;align-items:center;gap:11px;flex-shrink:0}
+.concept-brand svg{width:38px;height:43px}
+.concept-brand>span{font-family:'Fraunces',Georgia,serif;font-size:28px;line-height:1;letter-spacing:-1px}
+.concept-brand small{display:block;font-family:'DM Sans',Arial,sans-serif;font-size:8px;letter-spacing:.23em;text-align:center;margin-top:9px;font-weight:500}
+.concept-menu summary{display:none;cursor:pointer;list-style:none}
+.concept-menu summary::-webkit-details-marker{display:none}
+.concept-menu nav{display:flex;align-items:center;gap:26px;font-size:12px}
+.concept-menu nav>a:not(.concept-button):hover{text-decoration:underline;text-underline-offset:5px}
+.concept-button{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 24px;font-size:13px;font-weight:600;line-height:1.5;border:1px solid currentColor;transition:transform .2s,background .2s}
+.concept-button:hover{transform:translateY(-2px)}
+.concept-button>span{font-size:20px}
+.nav-support{padding:12px 16px;font-size:11px;gap:20px}
+.concept-button-row{display:flex;align-items:center;flex-wrap:wrap;gap:25px}
+.concept-text-link{display:inline-flex;align-items:center;gap:24px;font-size:13px;font-weight:600;padding-bottom:5px;border-bottom:1px solid currentColor;line-height:1.65}
+.concept-text-link:hover{opacity:.75}
+.concept-footer>.concept-wrap:first-child{display:grid;grid-template-columns:1.3fr 1fr .8fr 1fr;gap:35px;padding-block:45px;align-items:center}
+.concept-footer p,.concept-footer address{font-size:12px;line-height:1.8;font-style:normal}
+.concept-footer>div>div{display:flex;flex-direction:column;align-items:flex-start;gap:10px;font-size:12px}
+.footer-fine{border-top:1px solid currentColor;display:flex;justify-content:space-between;gap:25px;font-size:9px;padding-block:18px;opacity:.75}
+.journal{background:#f4f0e5;color:#2c3b2d;font-family:'DM Sans',Arial,sans-serif}
+.journal .concept-header{border-bottom:1px solid #c6cbb9}
+.journal .concept-brand>span{font-size:30px}
+.journal .concept-button{background:#a34833;border-color:#a34833;color:#fff9ec}
+.journal h1,.journal h2,.journal h3{font-family:'Fraunces',Georgia,serif;letter-spacing:-.045em;line-height:1.08}
+.journal em{color:#9d4c36;font-weight:400}
+.journal-cover{padding-top:20px}
+.journal-dateline{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #aeb6a1;padding-bottom:12px;font-size:8px;letter-spacing:.14em}
+.journal-cover h1{font-size:clamp(60px,6.3vw,91px);text-align:center;line-height:1.02;margin:25px 0 20px;letter-spacing:-.055em}
+.journal-cover h1 br{display:none}
+.journal-cover-photo img{height:345px;object-position:center 38%}
+.journal-cover-photo figcaption{display:flex;justify-content:space-between;align-items:center;padding-block:12px;font-size:9px;letter-spacing:.09em;border-bottom:1px solid #aeb6a1}
+.journal-cover-photo figcaption a{font-size:11px;letter-spacing:0;font-weight:600}
+.journal-actions{display:grid;grid-template-columns:repeat(4,1fr);padding:26px 0 30px;border-bottom:1px solid #aeb6a1}
+.journal-actions>a{padding-inline:25px;border-right:1px solid #b8c0ab}
+.journal-actions>a:first-child{padding-left:0}
+.journal-actions>a:last-child{border:0;padding-right:0}
+.journal-number{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.08em;color:#7e8972;margin-bottom:13px}
+.journal-number>span{font-size:17px;color:#a34833;line-height:1}
+.journal-actions h2{font-size:26px;margin-bottom:7px;letter-spacing:-.04em}
+.journal-actions p{font-size:11px}
+.journal-actions a:hover h2{color:#a34833}
+.journal-stories{padding-block:70px}
+.journal-section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:25px;margin-bottom:30px}
+.journal-section-heading h2{font-size:46px}
+.journal-section-heading>.concept-eyebrow{font-size:9px}
+.journal-story-grid{display:grid;grid-template-columns:1.1fr 1.1fr .8fr;gap:32px}
+.journal-story-grid img{height:250px;margin-bottom:20px}
+.journal-story-grid>article:nth-child(2) img{object-position:center 43%}
+.journal-story-grid .journal-legacy img{filter:sepia(.15);height:250px}
+.journal-story-grid h3{font-size:34px;margin:14px 0 12px}
+.journal-story-grid p{font-size:13px;max-width:310px;min-height:47px}
+.journal-story-grid .story-link{display:inline-block;font-size:12px;border-bottom:1px solid #a4af9b;padding:15px 0 5px}
+.journal-community{background:#e2e6d5;padding-block:60px}
+.journal-community>.concept-wrap{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.journal-community img{height:390px;object-position:center 45%}
+.journal-community h2{font-size:43px;line-height:1.17;margin:23px 0}
+.journal-community p{font-size:14px;max-width:420px;margin-bottom:25px}
+.journal-community .concept-text-link{font-size:12px}
+.journal .concept-footer{background:#293b2e;color:#f5f0e4}
+.journal .footer-fine{border-color:#6e7c65}
+@media(max-width:1180px){
+.concept-wrap{width:calc(100% - 64px)}
+.concept-menu nav{gap:18px}
+.concept-brand>span{font-size:25px}
+.concept-header>.concept-wrap{gap:20px}
+.journal-cover h1{font-size:73px}
+.journal-cover h1 br{display:block}
+.journal-cover-photo img{height:320px}
+.journal-community{padding-block:50px}
+.journal-community>.concept-wrap{gap:40px}
+.journal-community h2{font-size:36px}
+.journal-actions h2{font-size:23px}
+}
+@media(max-width:900px){
+.concept-header>.concept-wrap{min-height:86px;flex-wrap:wrap;gap:0}
+.concept-menu{margin-left:auto}
+.concept-menu summary{display:flex;align-items:center;gap:12px;font-size:12px;padding:15px 0 15px 20px}
+.concept-menu[open]{width:100%;margin-left:0}
+.concept-menu[open] summary{position:absolute;right:32px;top:23px}
+.concept-menu nav{flex-direction:column;align-items:stretch;padding-block:0 24px;gap:0;font-size:14px}
+.concept-menu nav>a:not(.concept-button){padding-block:13px;border-bottom:1px solid #a9b69b50}
+.concept-menu .concept-button{width:fit-content;margin-top:18px}
+.concept-menu[open] nav{margin-top:7px}
+.concept-footer>.concept-wrap:first-child{grid-template-columns:1fr 1fr;gap:30px}
+.journal-dateline>span:nth-child(2){display:none}
+.journal-cover h1{font-size:69px}
+.journal-actions>a{padding-inline:18px}
+.journal-actions h2{font-size:22px}
+.journal-actions p{font-size:10px}
+.journal-section-heading{flex-wrap:wrap;align-items:center;gap:18px}
+.journal-section-heading>.concept-eyebrow{width:100%}
+.journal-story-grid{gap:22px}
+.journal-story-grid h3{font-size:28px}
+.journal-story-grid img,.journal-story-grid .journal-legacy img{height:210px}
+.journal-community>.concept-wrap{gap:30px}
+.journal-community h2{font-size:31px}
+.journal-community img{height:350px}
+}
+@media(max-width:600px){
+.concept-wrap{width:calc(100% - 36px)}
+.concept-header>.concept-wrap{min-height:82px}
+.concept-brand>span,.journal .concept-brand>span{font-size:25px}
+.concept-brand svg{width:31px;height:37px}
+.concept-brand small{font-size:7px;letter-spacing:.18em;margin-top:8px}
+.concept-menu[open] summary{right:18px;top:21px}
+.concept-button{font-size:12px;padding:15px 20px}
+.concept-button-row{gap:22px}
+.concept-footer>.concept-wrap:first-child{padding-block:35px;gap:27px 20px}
+.concept-footer .concept-brand{grid-column:1/-1}
+.concept-footer p,.concept-footer address,.concept-footer>div>div{font-size:11px}
+.concept-footer>div>address{grid-column:1/-1}
+.footer-fine{display:block;font-size:8px}
+.footer-fine>span{display:block;margin-top:6px}
+.journal-cover{padding-top:15px}
+.journal-dateline{font-size:6px;letter-spacing:.1em;gap:10px}
+.journal-cover h1{font-size:clamp(45px,12vw,65px);margin:23px 0 18px;line-height:1.05}
+.journal-cover-photo img{height:270px;object-position:51% 43%}
+.journal-cover-photo figcaption{font-size:6px;letter-spacing:.04em;gap:10px;padding-block:12px}
+.journal-cover-photo figcaption a{font-size:9px}
+.journal-actions{grid-template-columns:1fr 1fr;gap:23px 0;padding:25px 0}
+.journal-actions>a:nth-child(2){border:0;padding-right:0}
+.journal-actions>a:nth-child(3){padding-left:0}
+.journal-actions>a{padding-inline:16px}
+.journal-actions h2{font-size:23px;line-height:1.15}
+.journal-actions p{font-size:10px;line-height:1.7}
+.journal-number{margin-bottom:10px}
+.journal-stories{padding-block:45px}
+.journal-section-heading{margin-bottom:24px}
+.journal-section-heading h2{font-size:37px}
+.journal-section-heading .concept-text-link{font-size:10px;gap:12px}
+.journal-story-grid{grid-template-columns:1fr;gap:35px}
+.journal-story-grid img,.journal-story-grid .journal-legacy img{height:310px;margin-bottom:18px}
+.journal-story-grid h3{font-size:34px;margin-block:13px}
+.journal-story-grid p{font-size:13px;min-height:0;max-width:none}
+.journal-story-grid h3 br{display:none}
+.journal-story-grid .story-link{padding-top:12px}
+.journal-community>.concept-wrap{grid-template-columns:1fr;gap:30px}
+.journal-community{padding-block:35px}
+.journal-community img{height:280px}
+.journal-community h2{font-size:33px;line-height:1.2}
+.journal-community p{font-size:13px}
+.journal-community .concept-button{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*,*::before,*::after{transition:none!important;animation:none!important}
+}

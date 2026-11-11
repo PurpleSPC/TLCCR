@@ -1,0 +1,115 @@
+---
+import {withBase} from '../lib/paths';
+import InquiryField from './InquiryField.astro';
+interface Props {kind:string; title:string;}
+const {kind,title} = Astro.props;
+---
+<div class="inquiry-form-panel" data-inquiry-panel data-kind={kind} data-title={title}>
+  <div class="inquiry-preview-note"><span class="inquiry-preview-badge">FORM PREVIEW</span><p>You can fill in and review this form. Nothing is sent to the farm.</p></div>
+  <form class="inquiry-form" method="post" novalidate>
+    <p class="inquiry-required-note">Required fields are marked <span aria-hidden="true">*</span>.</p>
+    <div class="inquiry-error-summary" role="alert" tabindex="-1" hidden><h2>Please check your details.</h2><ul></ul></div>
+    <fieldset><legend>Your details</legend><div class="inquiry-fields">
+      <InquiryField kind={kind} name="firstName" label="First name" required autocomplete="given-name"/>
+      <InquiryField kind={kind} name="lastName" label="Last name" required autocomplete="family-name"/>
+      <InquiryField kind={kind} name="email" label="Email address" type="email" required autocomplete="email" full={kind !== 'visit'}/>
+      {kind === 'visit' && <InquiryField kind={kind} name="confirmEmail" label="Confirm email address" type="email" required autocomplete="email"/>}
+      <InquiryField kind={kind} name="phone" label="Phone number" type="tel" required={kind === 'visit'} autocomplete="tel" full={kind !== 'visit'}/>
+      {kind === 'visit' && <InquiryField kind={kind} name="secondaryPhone" label="Secondary phone number" type="tel" autocomplete="tel"/>}
+    </div></fieldset>
+    {kind === 'visit' && <fieldset><legend>Your visit</legend><p class="inquiry-fieldset-intro">Tell us your preferences. A requested date or time does not reserve a visit.</p><div class="inquiry-fields">
+      <InquiryField kind={kind} name="preferredDate" label="Preferred date" type="date" hint="Not sure yet? You can leave this blank."/>
+      <InquiryField kind={kind} name="preferredTime" label="Preferred time" type="time" hint="All visit times are Eastern time."/>
+      <InquiryField kind={kind} name="adults" label="Number of adults" type="number" required min={0} max={10} value="1"/>
+      <InquiryField kind={kind} name="children" label="Number of children" type="number" required min={0} max={20} value="0"/>
+      <p class="inquiry-field-hint inquiry-field-full">Bringing more than 10 adults or 20 children? Call the farm to discuss group arrangements.</p>
+      <InquiryField kind={kind} name="heardAbout" label="How did you hear about us?" type="select" full options={['Social Media','Word of Mouth','Previous Tour','Google','Facebook','Other']}/>
+      <InquiryField kind={kind} name="heardOther" label="Tell us where you heard about the farm" full conditional/>
+      <InquiryField kind={kind} name="message" label="Anything else you would like us to know?" type="textarea" full hint="You can include questions or access needs."/>
+    </div></fieldset>}
+    {kind === 'volunteer' && <fieldset><legend>A little about your interests</legend><div class="inquiry-fields">
+      <InquiryField kind={kind} name="interest" label="What interests you?" type="select" full options={['Animal care','Farm maintenance','Educational visits','Volunteering as a group','Not sure yet','Other']}/>
+      <InquiryField kind={kind} name="availability" label="When might you be available?" type="textarea" full hint="For example, weekday mornings or occasional weekends."/>
+      <InquiryField kind={kind} name="message" label="Tell us a little about yourself" type="textarea" full hint="Share any relevant experience, questions, or what draws you to the farm."/>
+    </div></fieldset>}
+    {kind === 'field-trip' && <fieldset><legend>Your school or group</legend><p class="inquiry-fieldset-intro">Your best estimates are fine. Group capacity and visit details are confirmed by the farm.</p><div class="inquiry-fields">
+      <InquiryField kind={kind} name="organization" label="School or group name" required full autocomplete="organization"/>
+      <InquiryField kind={kind} name="ages" label="Grade levels or approximate ages" required full/>
+      <InquiryField kind={kind} name="students" label="Estimated number of students" type="number" required min={1} max={1000}/>
+      <InquiryField kind={kind} name="chaperones" label="Estimated adults or chaperones" type="number" min={0} max={1000}/>
+      <InquiryField kind={kind} name="preferredDate" label="Preferred date" type="date" full hint="If you have several dates in mind, add them below."/>
+      <InquiryField kind={kind} name="message" label="Questions or learning goals" type="textarea" full hint="Tell us what you hope your students will discover, or anything the team should know about your visit."/>
+    </div></fieldset>}
+    <div class="inquiry-form-actions"><button class="concept-button" type="submit" disabled>Review my request <span aria-hidden="true">↗</span></button><p>This is an inquiry, not a confirmed booking.</p></div>
+    <noscript><p>Enable JavaScript to preview this form. You can also contact the farm by phone.</p></noscript>
+  </form>
+  <section class="inquiry-review" hidden tabindex="-1" aria-labelledby={`${kind}-review-title`}>
+    <span class="concept-eyebrow">CHECK YOUR DETAILS</span><h2 id={`${kind}-review-title`}>Your request, at a glance.</h2>
+    <p class="inquiry-review-status" role="status">Preview only. Your request has not been sent to the farm.</p>
+    <p>These are the details the farm would receive once form delivery is connected.</p>
+    <dl class="inquiry-review-details"></dl>
+    <div class="inquiry-review-actions"><button class="concept-button" type="button" data-edit-request>Edit my details ↗</button><button class="inquiry-text-button" type="button" data-new-request>Start a new request</button></div>
+    <a class="inquiry-back" href={withBase("/schedule/")}>Choose a different visit type →</a>
+  </section>
+</div>
+<script>
+  import {validateInquiry,inquiryToday} from '../lib/inquiries.mjs';
+  document.querySelectorAll<HTMLElement>('[data-inquiry-panel]').forEach(panel => {
+    const form = panel.querySelector<HTMLFormElement>('form');
+    const review = panel.querySelector<HTMLElement>('.inquiry-review');
+    const summary = panel.querySelector<HTMLElement>('.inquiry-error-summary');
+    if (!form || !review || !summary) return;
+    const kind = panel.dataset.kind ?? 'visit';
+    let attempted = false;
+    const inputs = Array.from(form.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>('[data-field-label]'));
+    const date = form.querySelector<HTMLInputElement>('[name=preferredDate]');
+    if (date) date.min = inquiryToday();
+    const values = () => Object.fromEntries(Array.from(new FormData(form).entries()).map(([key,value]) => [key,String(value).trim()]));
+    const updateOther = () => {
+      const field = form.querySelector<HTMLElement>('[data-other-field]');
+      const input = field?.querySelector<HTMLInputElement>('input');
+      const source = form.querySelector<HTMLSelectElement>('[name=heardAbout]');
+      if (field && input) { field.hidden = source?.value !== 'Other'; input.disabled = field.hidden; }
+    };
+    const renderErrors = (errors: Record<string,string>) => {
+      const list = summary.querySelector('ul')!;
+      list.replaceChildren();
+      inputs.forEach(input => {
+        const message = errors[input.name];
+        const error = form.querySelector<HTMLElement>(`#${input.id}-error`)!;
+        error.textContent = message ?? ''; error.hidden = !message;
+        if (message) {
+          input.setAttribute('aria-invalid','true');
+          const row = document.createElement('li'); const link = document.createElement('button');
+          link.type = 'button'; link.textContent = `${input.dataset.fieldLabel}: ${message}`;
+          link.addEventListener('click', () => input.focus()); row.append(link); list.append(row);
+        } else input.removeAttribute('aria-invalid');
+      });
+      summary.hidden = Object.keys(errors).length === 0;
+    };
+    const returnToForm = () => { review.hidden = true; form.hidden = false; inputs[0]?.focus(); };
+    form.addEventListener('submit', event => {
+      event.preventDefault(); attempted = true; updateOther();
+      const data = values(); const errors = validateInquiry(kind,data);
+      renderErrors(errors);
+      if (Object.keys(errors).length) { summary.focus(); return; }
+      const details = review.querySelector('dl')!; details.replaceChildren();
+      const typeRow = document.createElement('div'); const typeLabel = document.createElement('dt'); const typeValue = document.createElement('dd');
+      typeLabel.textContent = 'Request type'; typeValue.textContent = panel.dataset.title ?? ''; typeRow.append(typeLabel,typeValue); details.append(typeRow);
+      inputs.filter(input => input.name !== 'confirmEmail' && !input.disabled && data[input.name]).forEach(input => {
+        const row = document.createElement('div'); const name = document.createElement('dt'); const answer = document.createElement('dd');
+        name.textContent = input.dataset.fieldLabel ?? input.name;
+        let text = data[input.name];
+        if (input.name === 'preferredDate') text = new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date(`${text}T12:00:00Z`));
+        if (input.name === 'preferredTime') { const [hour,minute] = text.split(':').map(Number); text = `${hour % 12 || 12}:${String(minute).padStart(2,'0')} ${hour < 12 ? 'am' : 'pm'} Eastern`; }
+        answer.textContent = text; row.append(name,answer); details.append(row);
+      });
+      form.hidden = true; review.hidden = false; review.focus();
+    });
+    form.addEventListener('input', () => { updateOther(); if (attempted) renderErrors(validateInquiry(kind,values())); });
+    form.addEventListener('change', () => { updateOther(); if (attempted) renderErrors(validateInquiry(kind,values())); });
+    panel.querySelector('[data-edit-request]')?.addEventListener('click', returnToForm);
+    panel.querySelector('[data-new-request]')?.addEventListener('click', () => { form.reset(); attempted = false; updateOther(); renderErrors({}); returnToForm(); });
+    updateOther(); form.querySelector<HTMLButtonElement>('[type=submit]')!.disabled = false;
+  });
+</script>

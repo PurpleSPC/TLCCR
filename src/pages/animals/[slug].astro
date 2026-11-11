@@ -1,0 +1,9 @@
+---
+import {withBase, imageSrc} from '../../lib/paths';
+import FarmLayout from '../../layouts/FarmLayout.astro';
+import SupportBanner from '../../components/SupportBanner.astro';
+import { getAnimals, paragraphs } from '../../lib/content';
+export async function getStaticPaths() { return (await getAnimals()).map(animal => ({ params: { slug: animal.slug }, props: { animal: animal.entry } })); }
+const { animal } = Astro.props;
+---
+<FarmLayout title={animal.name} description={animal.introduction} image={animal.photo || undefined}><section class="container detail-hero"><div class="detail-photo"><img src={imageSrc(animal.photo || '/images/uploads/goat-portrait.jpg')} alt={animal.alt} width="1000" height="1250" fetchpriority="high" /></div><div class="detail-copy"><a class="back-link" href={withBase("/animals/")}>← Meet the animals</a><span class="eyebrow">{animal.species} · Critter Creek</span><h1>{animal.name}</h1><p class="lead">{animal.introduction}</p>{paragraphs(animal.story).map(paragraph => <p>{paragraph}</p>)}<a class="button" href={withBase("/visit/")}>Plan a visit <span aria-hidden="true">↗</span></a></div></section><section class="container care-note"><span class="eyebrow">Connection becomes care</span><h2>Be part of their story.</h2><p>{animal.care}</p><a class="text-link" href={withBase("/support/")}>Help keep the care going <span aria-hidden="true">↗</span></a></section><SupportBanner /></FarmLayout>

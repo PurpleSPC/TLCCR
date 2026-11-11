@@ -1,0 +1,17 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+import FarmLayout from '../layouts/FarmLayout.astro';
+import FarmSlideshow from '../components/FarmSlideshow.astro';
+import FarmActionCards from '../components/FarmActionCards.astro';
+import {getHome} from '../lib/content';
+const home = await getHome();
+const headline = home.headline.split('\n');
+---
+<FarmLayout title="Home">
+
+    <section class="journal-cover concept-wrap"><div class="journal-dateline"><span>PALM CITY, FLORIDA</span><span>{home.eyebrow}</span><span>THE FARM JOURNAL</span></div><h1>{headline[0]}{' '}<br/><em>{headline.slice(1).join(" ")}</em></h1><div class="journal-visit-cta"><a class="concept-button" href={withBase("/schedule/")} data-schedule-visit aria-haspopup="dialog" aria-controls="visit-chooser">Schedule a visit <span aria-hidden="true">↗</span></a></div><FarmSlideshow slides={home.farmSlides}/></section>
+    <FarmActionCards/>
+    <section class="journal-stories concept-wrap"><div class="journal-section-heading"><span class="concept-eyebrow">LIFE ON THE FARM</span><h2>Stories with <em>heart.</em></h2><a class="concept-text-link" href={withBase("/animals/")}>Get to know us ↗</a></div><div class="journal-story-grid"><article><a href={withBase("/animals/the-goats/")}><img src={imageSrc("/images/concepts/kiss.jpg")} alt="A visitor receives an affectionate nuzzle from a goat on the farm." width="1200" height="926" loading="lazy"/><span class="concept-eyebrow">MEET THE ANIMALS</span><h3>A connection you<br/>didn't see coming.</h3><p>Feathers, hooves, and personalities worth getting to know.</p><span class="story-link">Discover the residents ↗</span></a></article><article><a href={withBase("/education/")}><img src={imageSrc("/images/concepts/emu.jpg")} alt="A visitor crouches beside an emu and offers food during an animal encounter." width="1600" height="1200" loading="lazy"/><span class="concept-eyebrow">LEARN WITH US</span><h3>A good question<br/>changes everything.</h3><p>Real animals. Everyday care. A reason to keep asking why.</p><span class="story-link">Explore educational visits ↗</span></a></article><article class="journal-legacy"><a href={withBase("/about/")}><img src={imageSrc("/images/concepts/legacy.jpg")} alt="An archival black-and-white photograph of a young girl with a dog." width="800" height="800" loading="lazy"/><span class="concept-eyebrow">TOBY'S LEGACY</span><h3>It began with<br/>the love of a dog.</h3><p>The heart behind Critter Creek, and the story that carries on.</p><span class="story-link">Read our story ↗</span></a></article></div></section>
+    <section class="journal-community"><div class="concept-wrap"><img src={imageSrc("/images/concepts/people.jpg")} alt="A group of young visitors gathers around a miniature horse." width="1280" height="960" loading="lazy"/><div><span class="concept-eyebrow">A PLACE IN THE STORY FOR YOU</span><h2>Some give their time.<br/>Some give their support.<br/><em>All make a difference.</em></h2><p>The care happens every day. Join the community that helps keep it going.</p><div class="concept-button-row"><a class="concept-button" href={withBase("/support/")}>Support the animals ↗</a><a class="concept-text-link" href={withBase("/volunteer/")}>Become a volunteer ↗</a></div></div></div></section>
+
+</FarmLayout>

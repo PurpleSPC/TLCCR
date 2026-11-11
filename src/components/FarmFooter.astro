@@ -1,0 +1,7 @@
+---
+import {withBase} from '../lib/paths';
+import FarmBrand from './FarmBrand.astro';
+import {getSettings} from '../lib/content';
+const settings = await getSettings();
+---
+<footer class="concept-footer"><div class="concept-wrap"><FarmBrand/><p>It's the pets' house, we just pay the mortgage!</p><div><a href={withBase("/about/")}>Our story</a><a href={withBase("/contact/")}>Contact the farm</a><a href={withBase("/events/")}>Events</a></div><address>{settings.city}<br/><a href={withBase(`tel:${settings.phone.replace(/[^\d+]/g, '')}`)}>{settings.phone}</a></address></div><div class="concept-wrap footer-fine"><span>Toby's Legacy Critter Creek Ranch Foundation, Inc.</span><span>Visits by arrangement.</span></div></footer>

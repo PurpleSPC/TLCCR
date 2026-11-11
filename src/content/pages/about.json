@@ -1,0 +1,10 @@
+{
+  "title": "Our story", "status": "published", "eyebrow": "Toby's Legacy", "headline": "A love of animals.\nA legacy of care.",
+  "introduction": "Critter Creek's story begins with Milly Olson's lifelong love of animals, sparked by her first dog, Toby.",
+  "photo": "/images/uploads/swans.jpg", "alt": "Black swans beside the pond at Critter Creek.",
+  "sections": [
+    { "heading": "It started with Toby", "body": "Milly saw animals as friends, companions, and family. Together with her husband, Dick, she founded Critter Creek Sanctuary Ranch in Palm City, Florida." },
+    { "heading": "A place to call home", "body": "The ranch's mission brings together sanctuary, education, and conservation: caring for animals, helping people learn about nature, and preserving wildlife and natural habitats." },
+    { "heading": "Become part of the story", "body": "Arrange a visit. Bring your group's questions. Volunteer your time. Support the animals. There are many ways to connect with the life of the ranch and help its work continue." }
+  ], "ctaLabel": "Get in touch", "ctaSubject": "Hello, Critter Creek"
+}

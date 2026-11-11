@@ -1,0 +1,11 @@
+{
+  "title": "Visit the farm", "status": "published", "eyebrow": "A little closer to the animals", "headline": "Make a little room\nfor wonder.",
+  "introduction": "Step out of the everyday and into the life of Critter Creek. Get in touch with our team to arrange a visit to the sanctuary ranch in Palm City.",
+  "photo": "/images/uploads/goats-together.jpg", "alt": "Two white goats stand together on the grass at Critter Creek.",
+  "sections": [
+    { "heading": "Start with a conversation", "body": "Visits are arranged with the ranch team. Tell us who is coming, your preferred dates, and what you would love to learn about. We will help you work out the details before you come." },
+    { "heading": "A visit built around curiosity", "body": "Meet the ranch through its animals and the people who care for them. Ask questions, look closely, and learn about the everyday work of a sanctuary. Please follow the team's guidance around animals throughout your visit." },
+    { "heading": "Before you head our way", "body": "Confirm your visit with the team first. Ask about availability, any fees, group size, accessibility, clothing, and weather arrangements. The current site asks visitors to bring a completed waiver; confirm the latest requirements when booking." },
+    { "heading": "Find us in Palm City", "body": "3407 SW Bessey Creek Trail\nPalm City, FL 34990\n\nCall (772) 287-8572 or email contact@crittercreekranch.org to arrange your visit." }
+  ], "ctaLabel": "Let's plan your visit", "ctaSubject": "I'd like to arrange a visit to Critter Creek"
+}

@@ -1,0 +1,16 @@
+---
+import {withBase, imageSrc} from '../lib/paths';
+import FarmLayout from '../layouts/FarmLayout.astro';
+import SupportBanner from '../components/SupportBanner.astro';
+import { reader, getSettings, paragraphs, emailLink } from '../lib/content';
+export async function getStaticPaths() { return (await reader.collections.pages.all()).filter(page => page.entry.status === 'published').map(page => ({ params: { slug: page.slug }, props: { page: page.entry, slug: page.slug } })); }
+const { page, slug } = Astro.props;
+const settings = await getSettings();
+const inquiryRoutes: Record<string,string> = {visit:'/inquiries/visit/', volunteer:'/inquiries/volunteer/', education:'/inquiries/field-trip/'};
+const ctaHref = inquiryRoutes[slug] || (slug === 'support' && settings.donationUrl ? settings.donationUrl : emailLink(settings.email, page.ctaSubject));
+---
+<FarmLayout title={page.title} description={page.introduction} image={page.photo || undefined}>
+  <section class="container inner-hero"><div><span class="eyebrow">{page.eyebrow}</span><h1>{page.headline.split("\n").map((line, index) => index === 0 ? line : <><br/><em>{line}</em></>)}</h1><p class="lead">{page.introduction}</p><a class="button" href={withBase(ctaHref)}>{slug === 'support' && settings.donationUrl ? 'Make a donation' : page.ctaLabel}<span aria-hidden="true">↗</span></a><span class="button-help">{inquiryRoutes[slug] ? 'Tell us a few details to start your inquiry.' : ctaHref.startsWith('mailto:') ? 'Opens your email app. Or call us below.' : 'Continue to the ranch’s donation provider.'}</span></div><div class="inner-hero-photo"><img src={imageSrc(page.photo || '/images/uploads/goat-portrait.jpg')} alt={page.alt} width="900" height="1125" fetchpriority="high" /></div></section>
+  <section class="container article-grid section"><aside><span class="eyebrow">Make a connection</span><h2>Let's make<br />it happen.</h2><a class="contact-phone" href={withBase(`tel:${settings.phone.replace(/[^\d+]/g, '')}`)}>{settings.phone}</a><p>Have a question? Our team is a good place to start.</p><a class="text-link" href={withBase("/contact/")}>Contact the farm <span aria-hidden="true">↗</span></a></aside><div class="article-body">{page.sections.map(section => <section><h2>{section.heading}</h2>{paragraphs(section.body).map(paragraph => <p class="preserve-lines">{paragraph}</p>)}</section>)}{slug === 'volunteer' && settings.volunteerUrl && <a class="button button-outline" href={withBase(settings.volunteerUrl)}>Open the current volunteer application <span aria-hidden="true">↗</span></a>}{slug === 'visit' && settings.waiverUrl && <a class="text-link" href={withBase(settings.waiverUrl)}>View the existing visitor waiver (PDF) <span aria-hidden="true">↓</span></a>}{slug === 'education' && <a class="text-link" href="https://crittercreekranch.org/i-did-not-know-that/">Read the ranch's animal-care stories <span aria-hidden="true">↗</span></a>}</div></section>
+  {slug !== 'support' && <SupportBanner />}
+</FarmLayout>
